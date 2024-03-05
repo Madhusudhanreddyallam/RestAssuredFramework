@@ -1,7 +1,6 @@
 package client;
 
 import java.util.Map;
-
 import io.restassured.RestAssured;
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.http.ContentType;
@@ -9,13 +8,14 @@ import io.restassured.response.Response;
 import io.restassured.specification.RequestSpecification;
 
 public class RestClient {
-	private static final String BASE_URI = "https://gorest.co.in";
-	private static final String BEARER_TOKEN = "6442e439f9a859bb160324bafeb5ad9963f063684860e0ac280b561d3bcdf7ba";
 
+	private String baseURI;
+	private String apiKey;
 	private RequestSpecBuilder specBuilder;
 
-	public RestClient() {
-		specBuilder = new RequestSpecBuilder();
+	public RestClient(String baseURI , String apiKey ) {	
+		this.apiKey = apiKey;
+		this.baseURI = baseURI;
 	}
 
 	public void setRequestContentType(String contentType) {
@@ -39,24 +39,17 @@ public class RestClient {
 	}
 
 	private void addAuthHeader() {
-		specBuilder.addHeader("Authorization", "Bearer " + BEARER_TOKEN);
+		specBuilder.addHeader("Authorization", "Bearer " + apiKey);
 	}
 
 	private void setBaseRequestSpec() {
-		specBuilder.setBaseUri(BASE_URI);
+		specBuilder = new RequestSpecBuilder();
+		specBuilder.setBaseUri(baseURI);
 		addAuthHeader();
 	}
 
 	private RequestSpecification createRequestSpec() {
 		setBaseRequestSpec();
-		return	specBuilder.build();
-	}
-
-	private RequestSpecification createRequestSpec(Map<String , String> headersMap) {
-		setBaseRequestSpec();
-		if(headersMap!=null) {
-			specBuilder.addHeaders(headersMap);
-		}
 		return	specBuilder.build();
 	}
 
@@ -104,21 +97,8 @@ public class RestClient {
 					.when()
 						.get(serviceUrl);
 		}
-
 	}
 	
-	public Response get(String serviceUrl ,Map<String , String> headersMap , boolean log) {
-		if(log) {
-			return RestAssured.given(createRequestSpec(headersMap)).log().all()
-						.when()
-							.get(serviceUrl);
-		}else {
-			return RestAssured.given(createRequestSpec(headersMap))
-					.when()
-						.get(serviceUrl);
-		}
-
-	}
 	
 	public Response get(String serviceUrl ,Map<String , String> headersMap, Map<String , String> queryParam , boolean log) {
 		if(log) {

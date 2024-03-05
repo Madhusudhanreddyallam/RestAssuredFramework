@@ -5,28 +5,38 @@ import java.util.Map;
 
 import org.testng.annotations.Test;
 
-import client.RestClient;
+import constants.HttpsStatus;
+import util.BaseClass;
 
-public class GetUserData {
-	RestClient restClient;
+public class GetUserData extends BaseClass {
+	
+ 
 	@Test
 	public void getAllUsers() {
-		restClient = new RestClient();
-		restClient.get("/public/v2/users", true)
+		restClient.get(GO_REST_ENDPOINT, true)
 		.then().log().all()
-		.assertThat().statusCode(200);
-	}
+		.assertThat().statusCode(HttpsStatus.OK_200.getCode());
+		}
 	
 	@Test
 	public void getAllUsersQueryParams() {
-		restClient = new RestClient();
 		Map<String , String> queryParams = new HashMap<String , String> ();
-		queryParams.put("name", "Damodara Gill III");
+		queryParams.put("name", "Madhuri Agarwal");
 		queryParams.put("status", "active");
 
-		restClient.get("/public/v2/users/", null, queryParams, true)
+		restClient.get(GO_REST_ENDPOINT, null, queryParams, true)
 					.then().log().all()
-						.assertThat().statusCode(200);
+						.assertThat().statusCode(HttpsStatus.OK_200.getCode());		
+	}
+	
+	@Test
+	public void getAllUsersQueryParamss() {
+		Map<String , String> queryParams = new HashMap<String , String> ();
+		queryParams.put("status", "inactive");
+
+		restClient.get(GO_REST_ENDPOINT, null, queryParams, true)
+					.then().log().all()
+						.assertThat().statusCode(HttpsStatus.OK_200.getCode());
 	}
 	
 }

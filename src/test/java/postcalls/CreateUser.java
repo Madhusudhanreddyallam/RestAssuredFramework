@@ -7,7 +7,6 @@ import org.testng.annotations.Test;
 
 import pojo.User;
 import util.BaseClass;
-import util.StringUtils;
 
 public class CreateUser extends BaseClass {
 	
@@ -23,7 +22,7 @@ public class CreateUser extends BaseClass {
 	public void createUserAndVerifyDetails(String name, String gender , String status) {
 
 		//post call
-		User user = new User(name, StringUtils.getRandomEmailId() , gender , status);
+		User user = new User(name, getRandomEmailId() , gender , status);
 		int id = restClient.post(GO_REST_ENDPOINT, user, "json", true)
 				.then().log().all()
 				.statusCode(201)

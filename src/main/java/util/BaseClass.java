@@ -2,7 +2,8 @@ package util;
 
 import org.testng.annotations.BeforeTest;
 
-import client.RestClient;
+import clientandvalidator.RestClient;
+import constants.ServiceUrl;
 import io.qameta.allure.restassured.AllureRestAssured;
 import io.restassured.RestAssured;
 
@@ -20,6 +21,10 @@ public class BaseClass extends ServiceUrl {
 	    baseURI = config.getKeyValue("baseURI");
 	    apiKey = config.getKeyValue("token");
     	restClient = new RestClient(baseURI ,apiKey );
+	}
+	
+	public static String getRandomEmailId() {
+		return "test"+System.currentTimeMillis()+"@api.com";
 	}
 
 }

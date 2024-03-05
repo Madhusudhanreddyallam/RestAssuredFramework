@@ -1,4 +1,4 @@
-package client;
+package clientandvalidator;
 
 import java.util.Map;
 import io.restassured.RestAssured;

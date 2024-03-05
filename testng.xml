@@ -3,7 +3,7 @@
 <suite name="Suite">
   <test  name="Test">
     <classes>
-      <class name="getcalls.GetUserData"/>
+      <class name="getcalls.GetCircuit"/>
     </classes>
   </test> <!-- Test -->
 </suite> <!-- Suite -->

@@ -1,11 +1,11 @@
-package client;
+package clientandvalidator;
 
 import java.util.Map;
 
 import io.restassured.builder.RequestSpecBuilder;
 import io.restassured.specification.RequestSpecification;
 
-public class RestClientBard {
+public class RestClientChainingDummy {
 	private static final String BASE_URI = "https://gorest.co.in";
 	private static final String BEARER_TOKEN = "";
 	

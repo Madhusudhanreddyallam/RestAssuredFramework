@@ -3,6 +3,8 @@ package clientandvalidator;
 import java.util.List;
 import java.util.Map;
 
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.jayway.jsonpath.JsonPath;
 
 import io.restassured.response.Response;
@@ -38,5 +40,15 @@ public class JsonPathValidater {
 			throw new RuntimeException(jsonPath + " not found.");
 		}
 	}
+	
+	public static <T> T parseResponse(Response response, Class<T> clazz)  {
+        ObjectMapper objectMapper = new ObjectMapper();
+        try {
+			return objectMapper.readValue(response.getBody().asString(), clazz);
+		}  catch (JsonProcessingException e) {
+			e.printStackTrace();
+		}
+        return null;
+    }
 
 }

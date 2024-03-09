@@ -31,7 +31,7 @@ public class JsonPathValidater {
 		}
 	}
 	
-	public <T> List<Map<T,T>>  readJsonValueAsListOfMap(Response response , String jsonPath) {
+	public <T> List<Map<String, Object>>  readJsonValueAsListOfMap(Response response , String jsonPath) {
 		String jsonResponse = response.getBody().asString();
 		try {
 			return JsonPath.read(jsonResponse,jsonPath);
@@ -47,8 +47,9 @@ public class JsonPathValidater {
 			return objectMapper.readValue(response.getBody().asString(), clazz);
 		}  catch (JsonProcessingException e) {
 			e.printStackTrace();
+	        throw new RuntimeException("Error processing JSON response in parseResponse method: " + e.getMessage());
 		}
-        return null;
+
     }
 
 }

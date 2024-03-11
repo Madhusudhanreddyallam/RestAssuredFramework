@@ -9,7 +9,7 @@ import io.restassured.RestAssured;
 
 public class BaseClass extends ServiceUrl {
 	
-	private ConfigManager config;
+	//private ConfigManager config;
 	protected String baseURI;
 	protected String apiKey;
 	protected RestClient restClient;
@@ -17,9 +17,11 @@ public class BaseClass extends ServiceUrl {
 	@BeforeTest
 	public void setup() {
 		RestAssured.filters(new AllureRestAssured());
-		config = new ConfigManager();
-	    baseURI = config.getKeyValue("baseURI");
-	    apiKey = config.getKeyValue("token");
+		//config = new ConfigManager();
+		//baseURI = config.getKeyValue("baseURI");
+	    //apiKey = config.getKeyValue("apiToken");
+		baseURI = System.getProperty("baseURI");
+	    apiKey = System.getProperty("apiToken");
     	restClient = new RestClient(baseURI ,apiKey );
 	}
 	

@@ -24,7 +24,6 @@ public class CreateUser extends BaseClass {
 		//post call
 		User user = new User(name, getRandomEmailId() , gender , status);
 		Response response = restClient.post(GO_REST_ENDPOINT, user, "json", true);
-
 		//De-Serialization
 		User responseObj = JsonPathValidater.parseResponse(response, User.class);
 		Assert.assertEquals(user.getEmail() , responseObj.getEmail());

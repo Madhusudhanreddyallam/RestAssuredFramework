@@ -4,3 +4,4 @@ allure-results/
 .settings
 .classpath
 .project
+target/
